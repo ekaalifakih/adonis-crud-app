@@ -24,7 +24,7 @@ export default class ProductsController {
       const product = await Product.findOrFail(params.id)
       return response.ok(product)
     } catch (error) {
-      return response.notFound({ message: 'Product not found' })
+      return response.notFound({ message: 'Produk tidak ditemukan' })
     }
   }
 
@@ -37,7 +37,9 @@ export default class ProductsController {
       return response.ok(product)
     } catch (error) {
       if (error.code === 'E_ROW_NOT_FOUND') {
-        return response.notFound({ message: 'Product not found' })
+        return response.notFound({
+          message: 'Data tidak dapat diperbaharui, produk tidak ditemukan.',
+        })
       }
       return response.badRequest(error.messages)
     }
@@ -47,9 +49,9 @@ export default class ProductsController {
     try {
       const product = await Product.findOrFail(params.id)
       await product.delete()
-      return response.ok({ message: 'Product Deleted' })
+      return response.ok({ message: 'Produk berhasil dihapus' })
     } catch (error) {
-      return response.notFound({ message: 'Product not found' })
+      return response.notFound({ message: 'Produk tidak dapat dihapus, produk tidak ditemukan.' })
     }
   }
 }
