@@ -1,0 +1,25 @@
+@layout('layout')
+@section('content')
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">{{ product.name }}</h5>
+        <p class="card-text">{{ product.description }}</p>
+        <p class="text-muted">Price: Rp {{ formatCurrency(product.price) }}</p>
+        <p class="text-muted">Stock: {{ product.stock }}</p>
+        <p class="text-muted">Created: {{ product.createdAt.toFormat('dd/MM/yyyy
+            HH:mm') }}</p>
+        <p class="text-muted">Last Updated: {{
+            product.updatedAt.toFormat('dd/MM/yyyy HH:mm') }}</p>
+
+        <div class="mt-4">
+            <a href="/products" class="btn btn-secondary">Back to List</a>
+            <a href="/products/{{ product.id }}/edit" class="btn btn-warning">Edit</a>
+            <form action="/products/{{ product.id }}" method="POST" class="d-inline">
+                <input type="hidden" name="_method" value="DELETE">
+                <button type="submit" class="btn btn-danger" onclick="return confirm('Are 
+you sure?')">Delete</button>
+            </form>
+        </div>
+    </div>
+</div>
+@endsection
